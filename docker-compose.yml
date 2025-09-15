@@ -1,0 +1,21 @@
+services:
+  issues-bot-v2:
+    build:
+      context: ./issues-bot
+    restart: unless-stopped
+    environment:
+      - DISCORD_TOKEN=${ISSUESV1_DISCORD_BOT_TOKEN}
+      - DISCORD_REMOVE_COMMANDS=${ISSUESV1_DISCORD_REMOVE_COMMANDS}
+      - DISCORD_GUILD_ID=${ISSUESV1_DISCORD_GUILD_ID}
+    volumes:
+      - ./issues-bot/.data:/app/.data
+
+  issues-bot-v2:
+    build:
+      context: ./issues-bot-2
+    restart: unless-stopped
+    environment:
+      - DISCORD_TOKEN=${ISSUESV2_DISCORD_BOT_TOKEN}
+      - DISCORD_ENVIRONMENT=prod
+    volumes:
+      - ./issues-bot-v2/.data:/app/.data
